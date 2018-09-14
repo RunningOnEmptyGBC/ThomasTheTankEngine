@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Source",
+    "\\ThomasTheTankEngine"
   ],
+  "SelectedNode": "\\Source\\EngineMain.cpp",
   "PreviewInSolutionExplorer": false
 }
