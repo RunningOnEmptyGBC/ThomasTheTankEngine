@@ -6,8 +6,27 @@
 using namespace std;
 #define DIV 1024
 #define WIDTH 7
+const char* gameTitle = "Working Title";
 
 int main() {
+
+	HANDLE handle = CreateMutex(NULL, TRUE, gameTitle);
+	if (GetLastError() != ERROR_SUCCESS) {
+		HWND hWnd = FindWindow(gameTitle, NULL);
+		if (hWnd) {
+			// An instance of your game is already running.
+			cout << "An instance of your game is already running." << endl;
+			ShowWindow(hWnd, SW_SHOWNORMAL);
+			SetFocus(hWnd);
+			SetForegroundWindow(hWnd);
+			SetActiveWindow(hWnd);
+			return false;
+		}
+	}
+	else {
+		cout << "There is no other instance of you game running." << endl;
+	}
+
 	//Displays AVailable RAM
 	MEMORYSTATUSEX statex;
 	statex.dwLength = sizeof(statex);
