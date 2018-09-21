@@ -91,3 +91,48 @@ bool CheckStorage(const DWORDLONG diskSpaceNeeded) {
 	return true;
 }
 */
+
+
+/*
+DWORD ReadCPUSpeed() {
+	DWORD BufferSize = sizeof(DWORD);
+	DWORD SpeedValue = 0;
+	DWORD type = REG_DWORD;
+	HKEY hKey;
+
+	long lError = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", 0, KEY_READ, &hKey);
+
+	if (lError == ERROR_SUCCESS) {
+		RegQueryValueEx(hKey, "MHz", NULL, &type, (LPBYTE)&MHzValue, &BufferSize);
+	}
+	return MHzValue;
+}
+
+DWORD ReadProcessorArchitecture() {
+	DWORD BufferSize = sizeof(DWORD);
+	DWORD ArchitectureValue = 0;
+	DWORD type = REG_DWORD;
+	HKEY hKey;
+
+	long lError = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", 0, KEY_READ, &hKey);
+
+	if (lError == ERROR_SUCCESS) {
+		RegQueryValueEx(hKey, "ProcessorNameString", NULL, &type, (LPBYTE)&ArchitectureValue, &BufferSize);
+	}
+	return ArchitectureValue;
+}
+
+DWORD ReadProcessorIdentifier() {
+	DWORD BufferSize = sizeof(DWORD);
+	DWORD IdentityValue = 0;
+	DWORD type = REG_DWORD;
+	HKEY hKey;
+
+	long lError = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", 0, KEY_READ, &hKey);
+
+	if (lError == ERROR_SUCCESS) {
+		RegQueryValueEx(hKey, "Identifier", NULL, &type, (LPBYTE)&IdentifierValue, &BufferSize);
+	}
+	return IdentifierValue;
+}
+*/
