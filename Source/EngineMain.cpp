@@ -94,11 +94,18 @@ int main() {
 	cout << "The CPU speed is: " << DWORDCheck << "Hz" << endl;
 
 	//*********************************************************
+	char value[255];
 	DWORD BufferSize = BUFFER;
-	char IdentifierValue[255] = "Hello";
-	RegGetValue(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", "Identifier", RRF_RT_ANY, NULL, (PVOID)&IdentifierValue, &BufferSize);
-	cout << IdentifierValue << endl;
+	//char IdentifierValue[255] = "Hello";
+	//char ArchitectureValue[255] = "Hello";
+	
+	RegGetValue(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", "ProcessorNameString", RRF_RT_ANY, NULL, (PVOID)&value, &BufferSize);
+	cout << value << endl;
+	RegGetValue(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", "Identifier", RRF_RT_ANY, NULL, (PVOID)&value, &BufferSize);
+	cout << value << endl;
+	
 	//************************************************************
+
 
 
 	DWORD DWORDCheck2 = test.ReadProcessorArchitecture();
