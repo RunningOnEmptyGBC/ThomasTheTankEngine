@@ -21,10 +21,16 @@ int main() {
 
 	//Display available Storage Space
 	ULARGE_INTEGER Freebytes;
-	unsigned long long QFree = 0;
+	unsigned long long displayStorage = 0;
 	GetDiskFreeSpaceEx(TEXT("C:\\"), &Freebytes, 0, 0);
-	QFree = Freebytes.QuadPart;
-	cout <<"Available Storage: " <<(QFree/DIV)/DIV << endl;
+	displayStorage = (Freebytes.QuadPart/DIV)/DIV;
+	cout <<"Available Storage: " <<displayStorage << endl;
+	if (displayStorage > 300) {
+		cout << "There is enough space" << endl;
+	}
+	else {
+		cout << "This is not enough space" << endl;
+	}
 	//
 	int q;
 	cin >> q;

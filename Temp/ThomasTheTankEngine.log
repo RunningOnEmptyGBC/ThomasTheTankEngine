@@ -1,4 +1,4 @@
 ﻿  EngineMain.cpp
 c:\users\shado\documents\github\thomasthetankengine\source\enginemain.cpp(15): warning C4244: 'initializing': conversion from 'DWORDLONG' to 'double', possible loss of data
-c:\users\shado\documents\github\thomasthetankengine\source\enginemain.cpp(17): warning C4244: 'initializing': conversion from 'DWORDLONG' to 'double', possible loss of data
+c:\users\shado\documents\github\thomasthetankengine\source\enginemain.cpp(18): warning C4244: 'initializing': conversion from 'DWORDLONG' to 'double', possible loss of data
   ThomasTheTankEngine.vcxproj -> C:\Users\shado\Documents\GitHub\ThomasTheTankEngine\ThomasTheTankEngine\..\Test\x64\ThomasTheTankEngine.exe
