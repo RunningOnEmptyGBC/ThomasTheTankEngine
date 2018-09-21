@@ -3,58 +3,113 @@
 #include <windows.h>
 #include <shlwapi.h>
 #include "string.h"
+#include <string>
+#include "CompatCheck.h"
 using namespace std;
 #define DIV 1024
-#define WIDTH 7
-const char* gameTitle = "Working Title";
+#define BUFFER 8192
 
+const char* gameTitle = "Working Title";
+int NeededMemory = 300;
+
+string temp() {
+	DWORD BufferSize = BUFFER;
+	string IdentifierValue;
+
+	RegGetValue(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", "Identifier", RRF_RT_ANY, NULL, (PVOID)&IdentifierValue, &BufferSize);
+	//cout << IdentifierValue << endl;
+
+	return IdentifierValue;
+};
 int main() {
 
-	HANDLE handle = CreateMutex(NULL, TRUE, gameTitle);
-	if (GetLastError() != ERROR_SUCCESS) {
-		HWND hWnd = FindWindow(gameTitle, NULL);
-		if (hWnd) {
-			// An instance of your game is already running.
-			cout << "An instance of your game is already running." << endl;
-			ShowWindow(hWnd, SW_SHOWNORMAL);
-			SetFocus(hWnd);
-			SetForegroundWindow(hWnd);
-			SetActiveWindow(hWnd);
-			return false;
-		}
-	}
-	else {
-		cout << "There is no other instance of you game running." << endl;
-	}
+	//HANDLE handle = CreateMutex(NULL, TRUE, gameTitle);
+	//if (GetLastError() != ERROR_SUCCESS) {
+	//	HWND hWnd = FindWindow(gameTitle, NULL);
+	//	cout << "An instance of your game is already running." << endl;
+	//	if (hWnd) {
+	//		// An instance of your game is already running.
+	//		ShowWindow(hWnd, SW_SHOWNORMAL);
+	//		SetFocus(hWnd);
+	//		SetForegroundWindow(hWnd);
+	//		SetActiveWindow(hWnd);
+	//		return false;
+	//	}
+	//}
+	//else {
+	//	cout << "There is no other instance of you game running." << endl;
+	//}
 
-	//Displays AVailable RAM
-	MEMORYSTATUSEX statex;
-	statex.dwLength = sizeof(statex);
-	GlobalMemoryStatusEx(&statex);
-	double displayRAM = (statex.ullAvailPhys /DIV)/DIV;
-	cout << "RAM: " << displayRAM << " Megabytes" << endl;
-	//Display Available Virual Mem
-	double displayVir = (statex.ullAvailVirtual / DIV) / DIV;
-	cout <<"Virtual Memory: "<< displayVir << " Megabytes" << endl;
-	//
+	////Displays AVailable RAM
+	//MEMORYSTATUSEX statex;
+	//statex.dwLength = sizeof(statex);
+	//GlobalMemoryStatusEx(&statex);
+	//double displayRAM = (statex.ullAvailPhys /DIV)/DIV;
+	//cout << "RAM: " << displayRAM << " Megabytes" << endl;
+
+	////Display Available Virual Mem
+	//double displayVir = (statex.ullAvailVirtual / DIV) / DIV;
+	//cout <<"Virtual Memory: "<< displayVir << " Megabytes" << endl;
+	////
 
 	//Display available Storage Space
-	ULARGE_INTEGER Freebytes;
-	unsigned long long displayStorage = 0;
-	GetDiskFreeSpaceEx(TEXT("C:\\"), &Freebytes, 0, 0);
-	displayStorage = (Freebytes.QuadPart/DIV)/DIV;
-	cout <<"Available Storage: " <<displayStorage << endl;
-	if (displayStorage > 300) {
-		cout << "There is enough space" << endl;
+	//ULARGE_INTEGER Freebytes;
+	//unsigned long long displayStorage = 0;
+	//GetDiskFreeSpaceEx(TEXT("C:\\"), &Freebytes, 0, 0);
+	//displayStorage = (Freebytes.QuadPart/DIV)/DIV;
+	//cout <<"Available Storage: " <<displayStorage << "Megabytes" <<  endl;
+	//if (displayStorage > 300) {
+	//	cout << "There is enough space" << endl;
+	//}
+	//else {
+	//	cout << "This is not enough space" << endl;
+	//}
+	//
+	CompatCheck test = CompatCheck();
+	bool CheckBool = test.MultipleInstanceCheck(gameTitle);
+	cout << "Multiple instances running: "<< CheckBool << endl;
+	if (CheckBool) 
+	{
+		cout << "Muliple instances are running, please exit this application." << endl;
+		int q;
+		cin >> q;
+		return 0;
+	}
+
+	double CheckDouble = test.MemoryCheck();
+	cout << "Available memory: " << CheckDouble << "mb" << endl;
+
+	CheckDouble = test.VirtualMemoryCheck();
+	cout << "Available virtual memory: " << CheckDouble << "mb" << endl;
+
+	CheckBool = test.AvailableStorageCheck(NeededMemory);
+	if (CheckBool) {
+		cout << "There is more than " << NeededMemory << "mb available." << endl;
 	}
 	else {
-		cout << "This is not enough space" << endl;
+		cout << "There is not more than " << NeededMemory << "mb available." << endl;
 	}
-	//
+
+	DWORD DWORDCheck = test.ReadCPUSpeed();
+	cout << "The CPU speed is: " << DWORDCheck << "Hz" << endl;
+
+	//*********************************************************
+	DWORD BufferSize = BUFFER;
+	char IdentifierValue[255] = "Hello";
+	RegGetValue(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", "Identifier", RRF_RT_ANY, NULL, (PVOID)&IdentifierValue, &BufferSize);
+	cout << IdentifierValue << endl;
+	//************************************************************
+
+
+	DWORD DWORDCheck2 = test.ReadProcessorArchitecture();
+	cout << DWORDCheck2 << endl;
+
+	
 	int q;
 	cin >> q;
 	return 0;
 };
+
 
 /*
 int WINAPI WinMain()
@@ -93,46 +148,45 @@ bool CheckStorage(const DWORDLONG diskSpaceNeeded) {
 */
 
 
-/*
-DWORD ReadCPUSpeed() {
-	DWORD BufferSize = sizeof(DWORD);
-	DWORD SpeedValue = 0;
-	DWORD type = REG_DWORD;
-	HKEY hKey;
 
-	long lError = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", 0, KEY_READ, &hKey);
-
-	if (lError == ERROR_SUCCESS) {
-		RegQueryValueEx(hKey, "MHz", NULL, &type, (LPBYTE)&MHzValue, &BufferSize);
-	}
-	return MHzValue;
-}
-
-DWORD ReadProcessorArchitecture() {
-	DWORD BufferSize = sizeof(DWORD);
-	DWORD ArchitectureValue = 0;
-	DWORD type = REG_DWORD;
-	HKEY hKey;
-
-	long lError = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", 0, KEY_READ, &hKey);
-
-	if (lError == ERROR_SUCCESS) {
-		RegQueryValueEx(hKey, "ProcessorNameString", NULL, &type, (LPBYTE)&ArchitectureValue, &BufferSize);
-	}
-	return ArchitectureValue;
-}
-
-DWORD ReadProcessorIdentifier() {
-	DWORD BufferSize = sizeof(DWORD);
-	DWORD IdentityValue = 0;
-	DWORD type = REG_DWORD;
-	HKEY hKey;
-
-	long lError = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", 0, KEY_READ, &hKey);
-
-	if (lError == ERROR_SUCCESS) {
-		RegQueryValueEx(hKey, "Identifier", NULL, &type, (LPBYTE)&IdentifierValue, &BufferSize);
-	}
-	return IdentifierValue;
-}
-*/
+//DWORD ReadCPUSpeed() {
+//	DWORD BufferSize = sizeof(DWORD);
+//	DWORD SpeedValue = 0;
+//	DWORD type = REG_DWORD;
+//	HKEY hKey;
+//
+//	long lError = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", 0, KEY_READ, &hKey);
+//
+//	if (lError == ERROR_SUCCESS) {
+//		RegQueryValueEx(hKey, "MHz", NULL, &type, (LPBYTE)&SpeedValue, &BufferSize);
+//	}
+//	return SpeedValue;
+//}
+//
+//DWORD ReadProcessorArchitecture() {
+//	DWORD BufferSize = sizeof(DWORD);
+//	DWORD ArchitectureValue = 0;
+//	DWORD type = REG_DWORD;
+//	HKEY hKey;
+//
+//	long lError = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", 0, KEY_READ, &hKey);
+//
+//	if (lError == ERROR_SUCCESS) {
+//		RegQueryValueEx(hKey, "ProcessorNameString", NULL, &type, (LPBYTE)&ArchitectureValue, &BufferSize);
+//	}
+//	return ArchitectureValue;
+//}
+//
+//DWORD ReadProcessorIdentifier() {
+//	DWORD BufferSize = sizeof(DWORD);
+//	DWORD IdentifierValue = 0;
+//	DWORD type = REG_DWORD;
+//	HKEY hKey;
+//
+//	long lError = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", 0, KEY_READ, &hKey);
+//
+//	if (lError == ERROR_SUCCESS) {
+//		RegQueryValueEx(hKey, "Identifier", NULL, &type, (LPBYTE)&IdentifierValue, &BufferSize);
+//	}
+//	return IdentifierValue;
+//}
