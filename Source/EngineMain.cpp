@@ -1,121 +1,228 @@
-#include "stdio.h"
-#include <iostream>
-#include <windows.h>
-#include <shlwapi.h>
-#include "string.h"
-#include <string>
-#include "CompatCheck.h"
-using namespace std;
-#define DIV 1024
-#define BUFFER 8192
+// GT_HelloWorldWin32.cpp  
+// compile with: /D_UNICODE /DUNICODE /DWIN32 /D_WINDOWS /c  
 
-const char* gameTitle = "Working Title";
-int NeededMemory = 300;
+#include <windows.h>  
+#include <stdlib.h>  
+#include <string.h>  
+#include <tchar.h>  
 
-string temp() {
-	DWORD BufferSize = BUFFER;
-	string IdentifierValue;
+// Global variables  
 
-	RegGetValue(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", "Identifier", RRF_RT_ANY, NULL, (PVOID)&IdentifierValue, &BufferSize);
-	//cout << IdentifierValue << endl;
+// The main window class name.  
+static TCHAR szWindowClass[] = _T("win32app");
 
-	return IdentifierValue;
-};
-int main() {
+// The string that appears in the application's title bar.  
+static TCHAR szTitle[] = _T("Win32 Guided Tour Application");
 
-	//HANDLE handle = CreateMutex(NULL, TRUE, gameTitle);
-	//if (GetLastError() != ERROR_SUCCESS) {
-	//	HWND hWnd = FindWindow(gameTitle, NULL);
-	//	cout << "An instance of your game is already running." << endl;
-	//	if (hWnd) {
-	//		// An instance of your game is already running.
-	//		ShowWindow(hWnd, SW_SHOWNORMAL);
-	//		SetFocus(hWnd);
-	//		SetForegroundWindow(hWnd);
-	//		SetActiveWindow(hWnd);
-	//		return false;
-	//	}
-	//}
-	//else {
-	//	cout << "There is no other instance of you game running." << endl;
-	//}
+HINSTANCE hInst;
 
-	////Displays AVailable RAM
-	//MEMORYSTATUSEX statex;
-	//statex.dwLength = sizeof(statex);
-	//GlobalMemoryStatusEx(&statex);
-	//double displayRAM = (statex.ullAvailPhys /DIV)/DIV;
-	//cout << "RAM: " << displayRAM << " Megabytes" << endl;
+// Forward declarations of functions included in this code module:  
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
-	////Display Available Virual Mem
-	//double displayVir = (statex.ullAvailVirtual / DIV) / DIV;
-	//cout <<"Virtual Memory: "<< displayVir << " Megabytes" << endl;
-	////
+int CALLBACK WinMain(
+	_In_ HINSTANCE hInstance,
+	_In_ HINSTANCE hPrevInstance,
+	_In_ LPSTR     lpCmdLine,
+	_In_ int       nCmdShow
+)
+{
+	WNDCLASSEX wcex;
 
-	//Display available Storage Space
-	//ULARGE_INTEGER Freebytes;
-	//unsigned long long displayStorage = 0;
-	//GetDiskFreeSpaceEx(TEXT("C:\\"), &Freebytes, 0, 0);
-	//displayStorage = (Freebytes.QuadPart/DIV)/DIV;
-	//cout <<"Available Storage: " <<displayStorage << "Megabytes" <<  endl;
-	//if (displayStorage > 300) {
-	//	cout << "There is enough space" << endl;
-	//}
-	//else {
-	//	cout << "This is not enough space" << endl;
-	//}
-	//
-	CompatCheck test = CompatCheck();
-	bool CheckBool = test.MultipleInstanceCheck(gameTitle);
-	cout << "Multiple instances running: "<< CheckBool << endl;
-	if (CheckBool) 
+	wcex.cbSize = sizeof(WNDCLASSEX);
+	wcex.style = CS_HREDRAW | CS_VREDRAW;
+	wcex.lpfnWndProc = WndProc;
+	wcex.cbClsExtra = 0;
+	wcex.cbWndExtra = 0;
+	wcex.hInstance = hInstance;
+	wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_APPLICATION));
+	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+	wcex.lpszMenuName = NULL;
+	wcex.lpszClassName = szWindowClass;
+	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_APPLICATION));
+
+	if (!RegisterClassEx(&wcex))
 	{
-		cout << "Muliple instances are running, please exit this application." << endl;
-		int q;
-		cin >> q;
-		return 0;
+		MessageBox(NULL,
+			_T("Call to RegisterClassEx failed!"),
+			_T("Win32 Guided Tour"),
+			NULL);
+
+		return 1;
 	}
 
-	double CheckDouble = test.MemoryCheck();
-	cout << "Available memory: " << CheckDouble << "mb" << endl;
+	hInst = hInstance; // Store instance handle in our global variable  
 
-	CheckDouble = test.VirtualMemoryCheck();
-	cout << "Available virtual memory: " << CheckDouble << "mb" << endl;
+	// The parameters to CreateWindow explained:  
+	// szWindowClass: the name of the application  
+	// szTitle: the text that appears in the title bar  
+	// WS_OVERLAPPEDWINDOW: the type of window to create  
+	// CW_USEDEFAULT, CW_USEDEFAULT: initial position (x, y)  
+	// 500, 100: initial size (width, length)  
+	// NULL: the parent of this window  
+	// NULL: this application does not have a menu bar  
+	// hInstance: the first parameter from WinMain  
+	// NULL: not used in this application  
+	HWND hWnd = CreateWindow(
+		szWindowClass,
+		szTitle,
+		WS_OVERLAPPEDWINDOW,
+		CW_USEDEFAULT, CW_USEDEFAULT,
+		1500, 500,
+		NULL,
+		NULL,
+		hInstance,
+		NULL
+	);
 
-	CheckBool = test.AvailableStorageCheck(NeededMemory);
-	if (CheckBool) {
-		cout << "There is more than " << NeededMemory << "mb available." << endl;
+	if (!hWnd)
+	{
+		MessageBox(NULL,
+			_T("Call to CreateWindow failed!"),
+			_T("Win32 Guided Tour"),
+			NULL);
+
+		return 1;
 	}
-	else {
-		cout << "There is not more than " << NeededMemory << "mb available." << endl;
+
+	// The parameters to ShowWindow explained:  
+	// hWnd: the value returned from CreateWindow  
+	// nCmdShow: the fourth parameter from WinMain  
+	ShowWindow(hWnd, nCmdShow);
+	UpdateWindow(hWnd);
+
+	// Main message loop:  
+	MSG msg;
+	while (GetMessage(&msg, NULL, 0, 0))
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+		RedrawWindow(hWnd, NULL, NULL, RDW_INVALIDATE);
 	}
 
-	DWORD DWORDCheck = test.ReadCPUSpeed();
-	cout << "The CPU speed is: " << DWORDCheck << "Hz" << endl;
+	return (int)msg.wParam;
+}
 
-	//*********************************************************
-	char value[255];
-	DWORD BufferSize = BUFFER;
-	//char IdentifierValue[255] = "Hello";
-	//char ArchitectureValue[255] = "Hello";
-	
-	RegGetValue(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", "ProcessorNameString", RRF_RT_ANY, NULL, (PVOID)&value, &BufferSize);
-	cout << value << endl;
-	RegGetValue(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", "Identifier", RRF_RT_ANY, NULL, (PVOID)&value, &BufferSize);
-	cout << value << endl;
-	
-	//************************************************************
+int x = 0;
+int y = 0;
+
+//  
+//  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)  
+//  
+//  PURPOSE:  Processes messages for the main window.  
+//  
+//  WM_PAINT    - Paint the main window  
+//  WM_DESTROY  - post a quit message and return  
+//  
+//  
+const int Size = 200;
+TCHAR greeting[Size] = _T("");
+void RemoveChar(TCHAR* array, int len, int index)
+{
+	for (int i = index; i < len - 1; ++i)
+		array[i] = array[i + 1];
+	array[len - 1] = 0;
+}
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	PAINTSTRUCT ps;
+	HDC hdc;
+	LPSTR temp = new char[1];
 
 
+	switch (uMsg)
+	{
+	case WM_KEYDOWN:
+		//x++;
 
-	DWORD DWORDCheck2 = test.ReadProcessorArchitecture();
-	cout << DWORDCheck2 << endl;
+		GetKeyNameTextA(lParam, temp, 10);
+		_tcscat_s(greeting, Size, TEXT(temp));
+		if (_tcslen(greeting) >= 150) {
+			RemoveChar(greeting, Size, 0);
+		}
 
-	
-	int q;
-	cin >> q;
-	return 0;
+		break;
+	case WM_LBUTTONDOWN:
+		//x++;
+
+		//GetKeyNameTextA(lParam, temp, 10);
+		_tcscat_s(greeting, Size, TEXT("Left Mouse Button"));
+
+		break;
+	case WM_RBUTTONDOWN:
+		//x++;
+
+		//GetKeyNameTextA(lParam, temp, 10);
+		_tcscat_s(greeting, Size, TEXT("Right Mouse Button"));
+
+		break;
+	case WM_MBUTTONDOWN:
+		//x++;
+
+		//GetKeyNameTextA(lParam, temp, 10);
+		_tcscat_s(greeting, Size, TEXT("Middle Mouse Button"));
+
+		break;
+	case WM_PAINT:
+		hdc = BeginPaint(hWnd, &ps);
+
+		// Here your application is laid out.  
+		// For this introduction, we just print out "Hello, World!"  
+		// in the top left corner.  
+		TextOut(hdc,
+			x, y,
+			greeting, _tcslen(greeting));
+		// End application-specific layout section.  
+
+		EndPaint(hWnd, &ps);
+		break;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+
+	default:
+
+		return DefWindowProc(hWnd, uMsg, wParam, lParam);
+		break;
+	}
+	//PAINTSTRUCT ps;
+	//HDC hdc;
+	//TCHAR greeting[] = _T("Hello, World!");
+
+	//switch (message)
+	//{
+	//case WM_PAINT:
+	//	hdc = BeginPaint(hWnd, &ps);
+
+	//	// Here your application is laid out.  
+	//	// For this introduction, we just print out "Hello, World!"  
+	//	// in the top left corner.  
+	//	TextOut(hdc,
+	//		5, 5,
+	//		greeting, _tcslen(greeting));
+	//	// End application-specific layout section.  
+
+	//	EndPaint(hWnd, &ps);
+	//	break;
+	//case WM_DESTROY:
+	//	PostQuitMessage(0);
+	//	break;
+	//default:
+	//	return DefWindowProc(hWnd, message, wParam, lParam);
+	//	break;
+	//}
+
+	//return 0;
+}
+
+class IKeyboardHandler {
+	virtual bool VOnKeyDown(unsigned int const kcode) = 0;
+	virtual bool VOnKeyUp(unsigned int const kcode) = 0;
 };
+
+
+
 
 
 /*
@@ -156,44 +263,3 @@ bool CheckStorage(const DWORDLONG diskSpaceNeeded) {
 
 
 
-//DWORD ReadCPUSpeed() {
-//	DWORD BufferSize = sizeof(DWORD);
-//	DWORD SpeedValue = 0;
-//	DWORD type = REG_DWORD;
-//	HKEY hKey;
-//
-//	long lError = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", 0, KEY_READ, &hKey);
-//
-//	if (lError == ERROR_SUCCESS) {
-//		RegQueryValueEx(hKey, "MHz", NULL, &type, (LPBYTE)&SpeedValue, &BufferSize);
-//	}
-//	return SpeedValue;
-//}
-//
-//DWORD ReadProcessorArchitecture() {
-//	DWORD BufferSize = sizeof(DWORD);
-//	DWORD ArchitectureValue = 0;
-//	DWORD type = REG_DWORD;
-//	HKEY hKey;
-//
-//	long lError = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", 0, KEY_READ, &hKey);
-//
-//	if (lError == ERROR_SUCCESS) {
-//		RegQueryValueEx(hKey, "ProcessorNameString", NULL, &type, (LPBYTE)&ArchitectureValue, &BufferSize);
-//	}
-//	return ArchitectureValue;
-//}
-//
-//DWORD ReadProcessorIdentifier() {
-//	DWORD BufferSize = sizeof(DWORD);
-//	DWORD IdentifierValue = 0;
-//	DWORD type = REG_DWORD;
-//	HKEY hKey;
-//
-//	long lError = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", 0, KEY_READ, &hKey);
-//
-//	if (lError == ERROR_SUCCESS) {
-//		RegQueryValueEx(hKey, "Identifier", NULL, &type, (LPBYTE)&IdentifierValue, &BufferSize);
-//	}
-//	return IdentifierValue;
-//}

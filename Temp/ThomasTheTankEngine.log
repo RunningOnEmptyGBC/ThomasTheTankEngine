@@ -1,2 +1,8 @@
 ﻿  EngineMain.cpp
+c:\users\shado\documents\github\thomasthetankengine\source\enginemain.cpp(37): warning C4302: 'type cast': truncation from 'LPSTR' to 'WORD'
+c:\users\shado\documents\github\thomasthetankengine\source\enginemain.cpp(42): warning C4302: 'type cast': truncation from 'LPSTR' to 'WORD'
+c:\users\shado\documents\github\thomasthetankengine\source\enginemain.cpp(139): warning C4244: 'argument': conversion from 'LPARAM' to 'LONG', possible loss of data
+c:\users\shado\documents\github\thomasthetankengine\source\enginemain.cpp(175): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\shado\documents\github\thomasthetankengine\source\enginemain.cpp(217): warning C4715: 'WndProc': not all control paths return a value
+  LINK : ..\Test\x64\ThomasTheTankEngine.exe not found or not built by the last incremental link; performing full link
   ThomasTheTankEngine.vcxproj -> C:\Users\shado\Documents\GitHub\ThomasTheTankEngine\ThomasTheTankEngine\..\Test\x64\ThomasTheTankEngine.exe
