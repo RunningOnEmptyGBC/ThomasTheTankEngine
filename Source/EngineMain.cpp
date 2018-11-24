@@ -4,10 +4,13 @@
 #include <windows.h>  
 #include <stdlib.h>  
 #include <string.h>  
-#include <tchar.h>  
+#include <tchar.h>
+#include "InputHandler.h"
+#include "EventHandler.h"
 
 // Global variables  
-
+InputHandler inputHandler = InputHandler();
+EventHandler eventHandler = EventHandler();
 // The main window class name.  
 static TCHAR szWindowClass[] = _T("win32app");
 
@@ -84,11 +87,11 @@ int CALLBACK WinMain(
 
 		return 1;
 	}
-
+	
 	// The parameters to ShowWindow explained:  
 	// hWnd: the value returned from CreateWindow  
 	// nCmdShow: the fourth parameter from WinMain  
-	ShowWindow(hWnd, nCmdShow);
+	ShowWindow(hWnd,nCmdShow);
 	UpdateWindow(hWnd);
 
 	// Main message loop:  
@@ -129,44 +132,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 	HDC hdc;
 	LPSTR temp = new char[1];
-
-
+	
+	inputHandler.GetInput(uMsg, eventHandler,lParam);
 	switch (uMsg)
 	{
-	case WM_KEYDOWN:
-		//x++;
-
-		GetKeyNameTextA(lParam, temp, 10);
-		_tcscat_s(greeting, Size, TEXT(temp));
-		if (_tcslen(greeting) >= 150) {
-			RemoveChar(greeting, Size, 0);
-		}
-
-		break;
-	case WM_LBUTTONDOWN:
-		//x++;
-
-		//GetKeyNameTextA(lParam, temp, 10);
-		_tcscat_s(greeting, Size, TEXT("Left Mouse Button"));
-
-		break;
-	case WM_RBUTTONDOWN:
-		//x++;
-
-		//GetKeyNameTextA(lParam, temp, 10);
-		_tcscat_s(greeting, Size, TEXT("Right Mouse Button"));
-
-		break;
-	case WM_MBUTTONDOWN:
-		//x++;
-
-		//GetKeyNameTextA(lParam, temp, 10);
-		_tcscat_s(greeting, Size, TEXT("Middle Mouse Button"));
-
-		break;
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-
+		
 		// Here your application is laid out.  
 		// For this introduction, we just print out "Hello, World!"  
 		// in the top left corner.  
@@ -174,15 +146,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			x, y,
 			greeting, _tcslen(greeting));
 		// End application-specific layout section.  
-
+		
 		EndPaint(hWnd, &ps);
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
-
+	
 	default:
-
+		
 		return DefWindowProc(hWnd, uMsg, wParam, lParam);
 		break;
 	}
@@ -260,6 +232,5 @@ bool CheckStorage(const DWORDLONG diskSpaceNeeded) {
 	return true;
 }
 */
-
 
 

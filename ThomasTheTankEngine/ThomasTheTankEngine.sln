@@ -5,6 +5,14 @@ VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ThomasTheTankEngine", "ThomasTheTankEngine.vcxproj", "{17CAE74A-A4C5-46B3-843D-928E7D880CB0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7B1B4DDD-1133-4763-B955-C0039EE1FEEC}"
+	ProjectSection(SolutionItems) = preProject
+		..\Source\EventHandler.cpp = ..\Source\EventHandler.cpp
+		..\Source\EventHandler.h = ..\Source\EventHandler.h
+		..\Source\InputHandler.cpp = ..\Source\InputHandler.cpp
+		..\Source\InputHandler.h = ..\Source\InputHandler.h
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
