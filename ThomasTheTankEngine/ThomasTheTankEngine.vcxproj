@@ -131,14 +131,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\CompatCheck.cpp" />
     <ClCompile Include="..\Source\EngineMain.cpp" />
     <ClCompile Include="..\Source\EnigineInit.cpp" />
     <ClCompile Include="..\Source\EventHandler.cpp" />
     <ClCompile Include="..\Source\InputHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\CompatCheck.h" />
     <ClInclude Include="..\Source\EnigineInit.h" />
     <ClInclude Include="..\Source\EventHandler.h" />
+    <ClInclude Include="..\Source\FastDelegate.h" />
+    <ClInclude Include="..\Source\FastDelegateBind.h" />
     <ClInclude Include="..\Source\InputHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

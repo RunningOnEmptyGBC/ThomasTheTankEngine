@@ -1,9 +1,2 @@
-﻿  EngineMain.cpp
-c:\users\shado\desktop\thomasthetankengine\source\enginemain.cpp(40): warning C4302: 'type cast': truncation from 'LPSTR' to 'WORD'
-c:\users\shado\desktop\thomasthetankengine\source\enginemain.cpp(45): warning C4302: 'type cast': truncation from 'LPSTR' to 'WORD'
-c:\users\shado\desktop\thomasthetankengine\source\enginemain.cpp(147): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  EventHandler.cpp
-c:\users\shado\desktop\thomasthetankengine\source\eventhandler.cpp(12): warning C4244: 'argument': conversion from 'LPARAM' to 'LONG', possible loss of data
-  Generating Code...
-c:\users\shado\desktop\thomasthetankengine\source\enginemain.cpp(189): warning C4715: 'WndProc': not all control paths return a value
-  ThomasTheTankEngine.vcxproj -> C:\Users\shado\Desktop\ThomasTheTankEngine\ThomasTheTankEngine\..\Test\x64\ThomasTheTankEngine.exe
+﻿  EventHandler.cpp
+  ThomasTheTankEngine.vcxproj -> G:\School New\12-10-2018\ThomasTheTankEngine-master\ThomasTheTankEngine\..\Test\x64\ThomasTheTankEngine.exe

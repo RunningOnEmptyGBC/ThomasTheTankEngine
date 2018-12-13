@@ -7,10 +7,16 @@
 #include <tchar.h>
 #include "InputHandler.h"
 #include "EventHandler.h"
+#include "EnigineInit.h"
 
+void KeyHandler();
+void Test();
 // Global variables  
-InputHandler inputHandler = InputHandler();
-EventHandler eventHandler = EventHandler();
+EnigineInit engine = EnigineInit();
+int x = 0;
+const int Size = 200;
+TCHAR greeting[Size] = _T("");
+int y = 0;
 // The main window class name.  
 static TCHAR szWindowClass[] = _T("win32app");
 
@@ -29,6 +35,7 @@ int CALLBACK WinMain(
 	_In_ int       nCmdShow
 )
 {
+
 	WNDCLASSEX wcex;
 
 	wcex.cbSize = sizeof(WNDCLASSEX);
@@ -87,6 +94,11 @@ int CALLBACK WinMain(
 
 		return 1;
 	}
+	engine.eventHandler.AddListener(KeyDown, &KeyHandler);
+	engine.eventHandler.AddListener(KeyDown, &Test);
+	engine.eventHandler.AddListener(KeyDown, &Test);
+	engine.eventHandler.AddListener(KeyDown, &Test);
+	engine.eventHandler.AddListener(KeyDown, &Test);
 	
 	// The parameters to ShowWindow explained:  
 	// hWnd: the value returned from CreateWindow  
@@ -106,8 +118,7 @@ int CALLBACK WinMain(
 	return (int)msg.wParam;
 }
 
-int x = 0;
-int y = 0;
+
 
 //  
 //  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)  
@@ -118,27 +129,21 @@ int y = 0;
 //  WM_DESTROY  - post a quit message and return  
 //  
 //  
-const int Size = 200;
-TCHAR greeting[Size] = _T("");
-void RemoveChar(TCHAR* array, int len, int index)
-{
-	for (int i = index; i < len - 1; ++i)
-		array[i] = array[i + 1];
-	array[len - 1] = 0;
-}
+
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	PAINTSTRUCT ps;
 	HDC hdc;
 	LPSTR temp = new char[1];
-	
-	inputHandler.GetInput(uMsg, eventHandler,lParam);
+
+	engine.inputHandler.GetInput(uMsg, engine.eventHandler, wParam, lParam);
+	engine.eventHandler.TriggerEvent(KeyDown);
 	switch (uMsg)
 	{
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-		
+
 		// Here your application is laid out.  
 		// For this introduction, we just print out "Hello, World!"  
 		// in the top left corner.  
@@ -146,18 +151,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			x, y,
 			greeting, _tcslen(greeting));
 		// End application-specific layout section.  
-		
+
 		EndPaint(hWnd, &ps);
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
-	
+
 	default:
+		// for example:
 		
+		// EventHandler.AddListener(/*Key Down*/, WKeyHandler);
+		// tell the event manager that I need to listen to the key down event, and when this event happens, please call the inputhandle function
 		return DefWindowProc(hWnd, uMsg, wParam, lParam);
 		break;
 	}
+
+	
+	
+	
+	
+
 	//PAINTSTRUCT ps;
 	//HDC hdc;
 	//TCHAR greeting[] = _T("Hello, World!");
@@ -187,12 +201,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 	//return 0;
 }
+void KeyHandler() {
+	if (engine.inputHandler.myButtons['w'] == true) {
+		//Do what we want when W is pressed
+		printf("anyhting");
+	}else	if (engine.inputHandler.myButtons['s'] == true) {
+		//Do what we want when S is pressed
+	}
+	else {
+		OutputDebugStringW(L"My output string. \n");
+	}
+
+}
 
 class IKeyboardHandler {
 	virtual bool VOnKeyDown(unsigned int const kcode) = 0;
 	virtual bool VOnKeyUp(unsigned int const kcode) = 0;
 };
 
+void Test() {
+	OutputDebugStringW(L"My output string. \n");
+	
+}
 
 
 
