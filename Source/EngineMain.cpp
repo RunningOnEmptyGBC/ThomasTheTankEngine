@@ -146,10 +146,12 @@ int CALLBACK WinMain(
 //  
 //  
 int rec1 = 300;
-int rec2 = 150;
-int rec3 = 500;
+int rec2 = 250;
+int rec3 = 350;
 int rec4 = 300;
-
+int penR = 0;
+int penG = 0;
+int penB = 0;
 
 int temp = 0;
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -178,7 +180,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		//    The black pen object is selected and sent to the current device context
 		//  The default brush is WHITE_BRUSH
 		SelectObject(hdc, GetStockObject(BLACK_PEN));
-		Rectangle(hdc, 0, 0, 200, 200);
+		//Rectangle(hdc, 0, 0, 200, 200);
 
 		//    Select DC_PEN so you can change the color of the pen with
 		//    COLORREF SetDCPenColor(HDC hdc, COLORREF color)
@@ -190,16 +192,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		//    Set the DC Brush to Red
 		//    The RGB macro is declared in "Windowsx.h"
-		SetDCBrushColor(hdc, RGB(255, 0, 0));
+		//SetDCBrushColor(hdc, RGB(255, 0, 0));
 
 		//    Set the Pen to Blue
-		SetDCPenColor(hdc, RGB(0, 0, 255));
+		SetDCPenColor(hdc, RGB(penR, penG, penB));
 
 		//    Drawing a rectangle with the current Device Context    
-		Rectangle(hdc, 100, 300, 200, 400);
+		//Rectangle(hdc, 100, 300, 200, 400);
 
 		//    Changing the color of the brush to Green
-		SetDCBrushColor(hdc, RGB(0, 255, 0));
+		SetDCBrushColor(hdc, RGB(125, 255, 200));
 		Rectangle(hdc, rec1, rec2, rec3, rec4);
 
 		//    Restoring the original object
@@ -282,10 +284,36 @@ void KeyHandler() {
 		//rec2++;
 		rec3++;
 		//rec4++;
+		
 	}
-	else {
-		OutputDebugStringW(L"Some other key was pressed. \n");
+	if (engine.inputHandler.myButtons[49] == true) { //Move Right
+		OutputDebugStringW(L"1 key was pressed. \n");
+		penR = 0;
+		penG = 0;
+		penB = 0;
 	}
+	else if (engine.inputHandler.myButtons[50] == true) { //Move Right
+		OutputDebugStringW(L"2 key was pressed. \n");
+		penR = 255;
+		penG = 0;
+		penB = 0;
+	}else if (engine.inputHandler.myButtons[51] == true) { //Move Right
+		OutputDebugStringW(L"3 key was pressed. \n");
+		penR = 0;
+		penG = 255;
+		penB = 0;
+	}else if (engine.inputHandler.myButtons[52] == true) { //Move Right
+		OutputDebugStringW(L"4 key was pressed. \n");
+		penR = 0;
+		penG = 0;
+		penB = 255;
+	}else if (engine.inputHandler.myButtons[53] == true) { //Move Right
+		OutputDebugStringW(L"5 key was pressed. \n");
+		penR = 255;
+		penG = 255;
+		penB = 255;
+	}
+	
 
 }
 
