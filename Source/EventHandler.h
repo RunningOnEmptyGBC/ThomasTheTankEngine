@@ -20,6 +20,10 @@ enum eventType {
 class EventHandler
 {
 public:
+
+	//EventType is Enum, funcitonDelegate is from a lib
+	map < eventType, vector <fastdelegate::FastDelegate0<>>> ourMap;
+	map < eventType, vector <int>> ourMapIndex;
 	
 	EventHandler();
 	void TriggerEvent(eventType name);
@@ -27,6 +31,8 @@ public:
 	void HandleKeyEvent( LPARAM lParam);
 	void HandleMouseEvent(int mouseButton);
 	~EventHandler();
+	
+	void TestHandlerEvent();
 
 
 };

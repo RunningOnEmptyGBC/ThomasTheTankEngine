@@ -8,6 +8,15 @@
 #include "InputHandler.h"
 #include "EventHandler.h"
 #include "EnigineInit.h"
+#include <iostream>
+#include <fstream>
+#include <conio.h>
+#include <stdio.h>
+#include <io.h>
+#include <fcntl.h>
+#ifndef _USE_OLD_IOSTREAMS
+using namespace std;
+#endif
 
 void KeyHandler();
 void Test();
@@ -35,7 +44,14 @@ int CALLBACK WinMain(
 	_In_ int       nCmdShow
 )
 {
-
+	AllocConsole();
+	// Get STDOUT handle
+	HANDLE ConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+	int SystemOutput = _open_osfhandle(intptr_t(ConsoleOutput), _O_TEXT);
+	FILE *COutputHandle = _fdopen(SystemOutput, "w");
+	
+	freopen_s(&COutputHandle, "CONOUT$", "w", stdout);
+	cout << "THis works" << endl;
 	WNDCLASSEX wcex;
 
 	wcex.cbSize = sizeof(WNDCLASSEX);
@@ -94,11 +110,11 @@ int CALLBACK WinMain(
 
 		return 1;
 	}
+	
 	engine.eventHandler.AddListener(KeyDown, &KeyHandler);
-	engine.eventHandler.AddListener(KeyDown, &Test);
-	engine.eventHandler.AddListener(KeyDown, &Test);
-	engine.eventHandler.AddListener(KeyDown, &Test);
-	engine.eventHandler.AddListener(KeyDown, &Test);
+	//engine.eventHandler.AddListener(KeyDown, &Test);
+	//engine.eventHandler.AddListener(KeyDown, &Test);
+	cout << &KeyHandler << endl;
 	
 	// The parameters to ShowWindow explained:  
 	// hWnd: the value returned from CreateWindow  
@@ -136,9 +152,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 	HDC hdc;
 	LPSTR temp = new char[1];
-
+	
 	engine.inputHandler.GetInput(uMsg, engine.eventHandler, wParam, lParam);
-	engine.eventHandler.TriggerEvent(KeyDown);
+	//engine.eventHandler.TriggerEvent(KeyDown);
 	switch (uMsg)
 	{
 	case WM_PAINT:
@@ -204,12 +220,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 void KeyHandler() {
 	if (engine.inputHandler.myButtons['w'] == true) {
 		//Do what we want when W is pressed
-		printf("anyhting");
+		OutputDebugStringW(L"W key was pressed. \n");
 	}else	if (engine.inputHandler.myButtons['s'] == true) {
-		//Do what we want when S is pressed
+		OutputDebugStringW(L"S key was pressed. \n");
 	}
 	else {
-		OutputDebugStringW(L"My output string. \n");
+		OutputDebugStringW(L"Some other key was pressed. \n");
 	}
 
 }
@@ -220,7 +236,7 @@ class IKeyboardHandler {
 };
 
 void Test() {
-	OutputDebugStringW(L"My output string. \n");
+	OutputDebugStringW(L"This is the Test function. \n");
 	
 }
 

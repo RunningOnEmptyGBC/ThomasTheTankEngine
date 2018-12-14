@@ -1,4 +1,5 @@
 #include "InputHandler.h"
+#include <iostream>
 
 
 InputHandler::InputHandler() 
@@ -20,8 +21,9 @@ void InputHandler::GetInput(UINT uMsg,EventHandler eventHandler, WPARAM wParam, 
 		//GetKeyNameTextA(lParam, temp, 10);
 		//Newx = LOWORD(temp);
 		myButtons[x] = true;
-		OutputDebugStringW(L"My output string. \n");
-		//eventHandler.TriggerEvent("Key Pressed");
+		cout << myButtons[x];
+		OutputDebugStringW(L"KeyDown \n");
+		eventHandler.TriggerEvent(KeyDown);
 		//eventHandler.HandleKeyEvent(lParam);
 		break;
 
@@ -31,7 +33,7 @@ void InputHandler::GetInput(UINT uMsg,EventHandler eventHandler, WPARAM wParam, 
 		//GetKeyNameTextA(lParam, temp, 10);
 		//Newx = LOWORD(temp);
 		myButtons[x] = false;
-		OutputDebugStringW(L"My output string FALSE. \n");
+		OutputDebugStringW(L"KeyUp. \n");
 		//eventHandler.TriggerEvent("Key Pressed");
 		//eventHandler.HandleKeyEvent(lParam);
 		break;
@@ -53,7 +55,13 @@ void InputHandler::GetInput(UINT uMsg,EventHandler eventHandler, WPARAM wParam, 
 		//eventHandler.HandleMouseEvent(3);
 
 		break;
+	default:
+
+		break;
 	}
+	
+	
+	
 }
 
 InputHandler::~InputHandler()

@@ -1,25 +1,54 @@
 #include "EventHandler.h"
-//EventType is Enum, funcitonDelegate is from a lib
-map < eventType, vector <fastdelegate::FastDelegate0<>>> ourMap;
+#include <iostream>
+
+
 
 EventHandler::EventHandler()
 {
-
+	
 }
 
 void EventHandler::AddListener(eventType name,fastdelegate::FastDelegate0<> function) {
 	// add call back function to list of listeners of (event name) list
-	ourMap[name].push_back(function);
+	fastdelegate::FastDelegate0<> noparameterdelegate(function);
+	ourMap[name].push_back(noparameterdelegate);
+	
+	//noparameterdelegate();  //THIS LINE SUCESSFULLY RUNS THE FUNCTION
+	ourMap[name];
+	
+	
 	
 }
 
+
 void EventHandler::TriggerEvent(eventType name) {
 	// go through list of listers of (event name) and call the call back functions
-	for (vector <fastdelegate::FastDelegate0<>>::const_iterator b = ourMap[name].begin(); b != ourMap[name].end(); ++b)
-	{
-		OutputDebugStringW(L"My output string. \n");
-		b;
+	//for (vector <fastdelegate::FastDelegate0<>>::iterator  b = ourMap[name].begin(); b != ourMap[name].end(); b++)
+	//{
+	//	OutputDebugStringW(L"This is the event handler triggering events. \n");
+	//	//ourMap[name].b();
+	//	
+	//	//ourMap[name](&b);
+	//	cout << &b << endl;
+	//	//ourMap[name].size();
+	//	
+	//	
+	//}
+	for (int i = 0; i < ourMap[name].size();i++) {
+		ourMap[name][i]();
 	}
+	//for (auto const& x : ourMap)
+	//{
+	//	x.second;
+	//	(this->*(x.second))();
+
+	//	//Or
+	//	((*this)->*(x.second))();
+	//	OutputDebugStringW(L"This is the event handler triggering events \n");
+	//	//(this->*x->second)();
+	//	
+	//}
+	
 }
 //
 //void EventHandler::HandleKeyEvent(LPARAM lParam)
@@ -53,4 +82,8 @@ void EventHandler::TriggerEvent(eventType name) {
 EventHandler::~EventHandler()
 {
 	
+}
+
+void EventHandler::TestHandlerEvent() {
+
 }
