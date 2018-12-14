@@ -33,6 +33,7 @@ void InputHandler::GetInput(UINT uMsg,EventHandler eventHandler, WPARAM wParam, 
 		//GetKeyNameTextA(lParam, temp, 10);
 		//Newx = LOWORD(temp);
 		myButtons[x] = false;
+		cout << myButtons[x];
 		OutputDebugStringW(L"KeyUp. \n");
 		//eventHandler.TriggerEvent("Key Pressed");
 		//eventHandler.HandleKeyEvent(lParam);

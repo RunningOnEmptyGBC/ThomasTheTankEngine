@@ -30,7 +30,7 @@ int y = 0;
 static TCHAR szWindowClass[] = _T("win32app");
 
 // The string that appears in the application's title bar.  
-static TCHAR szTitle[] = _T("Win32 Guided Tour Application");
+static TCHAR szTitle[] = _T("Thomas the Tank Engine Main Window");
 
 HINSTANCE hInst;
 
@@ -145,8 +145,13 @@ int CALLBACK WinMain(
 //  WM_DESTROY  - post a quit message and return  
 //  
 //  
+int rec1 = 300;
+int rec2 = 150;
+int rec3 = 500;
+int rec4 = 300;
 
 
+int temp = 0;
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	PAINTSTRUCT ps;
@@ -158,17 +163,50 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	switch (uMsg)
 	{
 	case WM_PAINT:
+	{
 		hdc = BeginPaint(hWnd, &ps);
+		//    Initializing original object
+		HGDIOBJ original = NULL;
 
-		// Here your application is laid out.  
-		// For this introduction, we just print out "Hello, World!"  
-		// in the top left corner.  
-		TextOut(hdc,
-			x, y,
-			greeting, _tcslen(greeting));
-		// End application-specific layout section.  
+		//    Saving the original object
+		original = SelectObject(hdc, GetStockObject(DC_PEN));
 
-		EndPaint(hWnd, &ps);
+		//    Rectangle function is defined as...
+		//    BOOL Rectangle(hdc, xLeft, yTop, yRight, yBottom);
+
+		//    Drawing a rectangle with just a black pen
+		//    The black pen object is selected and sent to the current device context
+		//  The default brush is WHITE_BRUSH
+		SelectObject(hdc, GetStockObject(BLACK_PEN));
+		Rectangle(hdc, 0, 0, 200, 200);
+
+		//    Select DC_PEN so you can change the color of the pen with
+		//    COLORREF SetDCPenColor(HDC hdc, COLORREF color)
+		SelectObject(hdc, GetStockObject(DC_PEN));
+
+		//    Select DC_BRUSH so you can change the brush color from the 
+		//    default WHITE_BRUSH to any other color
+		SelectObject(hdc, GetStockObject(DC_BRUSH));
+
+		//    Set the DC Brush to Red
+		//    The RGB macro is declared in "Windowsx.h"
+		SetDCBrushColor(hdc, RGB(255, 0, 0));
+
+		//    Set the Pen to Blue
+		SetDCPenColor(hdc, RGB(0, 0, 255));
+
+		//    Drawing a rectangle with the current Device Context    
+		Rectangle(hdc, 100, 300, 200, 400);
+
+		//    Changing the color of the brush to Green
+		SetDCBrushColor(hdc, RGB(0, 255, 0));
+		Rectangle(hdc, rec1, rec2, rec3, rec4);
+
+		//    Restoring the original object
+		SelectObject(hdc, original);
+
+		// It is not necessary to call DeleteObject to delete stock objects.
+	}
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
@@ -218,11 +256,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	//return 0;
 }
 void KeyHandler() {
-	if (engine.inputHandler.myButtons['w'] == true) {
+	if (engine.inputHandler.myButtons[87] == true) {
 		//Do what we want when W is pressed
-		OutputDebugStringW(L"W key was pressed. \n");
-	}else	if (engine.inputHandler.myButtons['s'] == true) {
+		OutputDebugStringW(L"W key was pressed. \n"); //Move Up
+		//rec1++;
+		rec2--;
+		//rec3++;
+		rec4--;
+	}else	if (engine.inputHandler.myButtons[83] == true) { //Move Down
 		OutputDebugStringW(L"S key was pressed. \n");
+		//rec1--;
+		rec2++;
+		//rec3--;
+		rec4++;
+	}if (engine.inputHandler.myButtons[65] == true) { //Move Left
+		OutputDebugStringW(L"A key was pressed. \n");
+		rec1--;
+		//rec2++;
+		rec3--;
+		//rec4++;
+	}
+	else	if (engine.inputHandler.myButtons[68] == true) { //Move Right
+		OutputDebugStringW(L"A key was pressed. \n");
+		rec1++;
+		//rec2++;
+		rec3++;
+		//rec4++;
 	}
 	else {
 		OutputDebugStringW(L"Some other key was pressed. \n");
@@ -238,6 +297,10 @@ class IKeyboardHandler {
 void Test() {
 	OutputDebugStringW(L"This is the Test function. \n");
 	
+}
+
+void WTestEvent() {
+
 }
 
 
