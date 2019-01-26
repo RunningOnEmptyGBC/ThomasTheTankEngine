@@ -1,2 +1,12 @@
-﻿  InputHandler.cpp
-  ThomasTheTankEngine.vcxproj -> C:\Users\shado\Documents\GitHub\ThomasTheTankEngine\ThomasTheTankEngine\..\Test\x64\ThomasTheTankEngine.exe
+﻿  CompatCheck.cpp
+d:\thomasthetankengine\source\compatcheck.cpp(43): warning C4244: 'initializing': conversion from 'DWORDLONG' to 'double', possible loss of data
+d:\thomasthetankengine\source\compatcheck.cpp(52): warning C4244: 'initializing': conversion from 'DWORDLONG' to 'double', possible loss of data
+  EngineMain.cpp
+d:\thomasthetankengine\source\enginemain.cpp(63): warning C4302: 'type cast': truncation from 'LPSTR' to 'WORD'
+d:\thomasthetankengine\source\enginemain.cpp(68): warning C4302: 'type cast': truncation from 'LPSTR' to 'WORD'
+  EnigineInit.cpp
+  EventHandler.cpp
+  InputHandler.cpp
+  Generating Code...
+d:\thomasthetankengine\source\enginemain.cpp(259): warning C4715: 'WndProc': not all control paths return a value
+  ThomasTheTankEngine.vcxproj -> D:\ThomasTheTankEngine\ThomasTheTankEngine\..\Test\x64\ThomasTheTankEngine.exe
