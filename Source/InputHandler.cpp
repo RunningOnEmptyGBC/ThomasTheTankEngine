@@ -4,7 +4,7 @@
 
 InputHandler::InputHandler() 
 {
-
+	OutputDebugStringW(L"Input Handler Initialized\n");
 }
 
 //LPSTR temp = new char[1];

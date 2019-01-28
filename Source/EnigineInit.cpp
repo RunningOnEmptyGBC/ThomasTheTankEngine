@@ -6,8 +6,8 @@
 EnigineInit::EnigineInit()
 {
 	//compatCheck = CompatCheck();
-	inputHandler = InputHandler();
-	eventHandler = EventHandler();
+	
+	
 	
 
 }
