@@ -1,9 +1,8 @@
-// GT_HelloWorldWin32.cpp  
-// compile with: /D_UNICODE /DUNICODE /DWIN32 /D_WINDOWS /c  
+//ThomasTheTank Engine
 
 #include <windows.h>  
 #include <stdlib.h>  
-#include <string.h>  
+#include <string>  
 #include <tchar.h>
 #include "InputHandler.h"
 #include "EventHandler.h"
@@ -14,14 +13,21 @@
 #include <stdio.h>
 #include <io.h>
 #include <fcntl.h>
+#include "BaseObjectClass.h"
+#include <algorithm>
+#include <functional>
 #ifndef _USE_OLD_IOSTREAMS
 using namespace std;
 #endif
 
 void KeyHandler();
+void PlayerMovement();
 void Test();
 // Global variables  
 EnigineInit engine = EnigineInit();
+BaseObjectClass player = BaseObjectClass("Matthew");
+BaseObjectClass childTest = BaseObjectClass("Shariq");
+BaseObjectClass childTest2 = BaseObjectClass("Victor");
 int x = 0;
 const int Size = 200;
 TCHAR greeting[Size] = _T("");
@@ -111,9 +117,14 @@ int CALLBACK WinMain(
 		return 1;
 	}
 	
+	
+	player.setType(1);
+	childTest.setType(1);
+	player.Children.push_back(childTest);
+	player.Children.push_back(childTest2);
 	engine.eventHandler.AddListener(KeyDown, &KeyHandler);
-	//engine.eventHandler.AddListener(KeyDown, &Test);
-	//engine.eventHandler.AddListener(KeyDown, &Test);
+	engine.eventHandler.AddListener(KeyDown, &PlayerMovement);
+	
 	cout << &KeyHandler << endl;
 	
 	// The parameters to ShowWindow explained:  
@@ -315,6 +326,40 @@ void KeyHandler() {
 	}
 	
 
+}
+
+void PlayerMovement() {
+	system("CLS");
+	if (engine.inputHandler.myButtons[87] == true) { //Move Forward
+		player.MoveForward(1);
+		//These loops after the Player.Move's are nessessary because MoveChildren does not work
+		for (int i = 0; i < player.Children.size(); ++i)
+		{
+			player.Children[i].MoveForward(1);
+		}
+	}else	if (engine.inputHandler.myButtons[83] == true) { //Move Backward
+		player.position.y--;
+		for (int i = 0; i < player.Children.size(); ++i)
+		{
+			player.Children[i].MoveForward(0);
+		}
+	}
+	if (engine.inputHandler.myButtons[65] == true) { //Move Left
+		player.position.x--;
+		for (int i = 0; i < player.Children.size(); ++i)
+		{
+			player.Children[i].MoveRight(0);
+		}
+	}else	if (engine.inputHandler.myButtons[68] == true) { //Move Right
+		player.position.x++;
+		for (int i = 0; i < player.Children.size(); ++i)
+		{
+			player.Children[i].MoveRight(1);
+		}
+	}
+	player.PrintPos();
+	player.PrintChildPos();
+	//cout <<"Child: " << "[" << childTest.position.x << "," << childTest.position.y << "," << childTest.position.z << "]" << endl;
 }
 
 class IKeyboardHandler {

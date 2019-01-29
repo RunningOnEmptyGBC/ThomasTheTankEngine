@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\BaseObjectClass.cpp" />
     <ClCompile Include="..\Source\CompatCheck.cpp" />
     <ClCompile Include="..\Source\EngineMain.cpp" />
     <ClCompile Include="..\Source\EnigineInit.cpp" />
@@ -138,6 +139,7 @@
     <ClCompile Include="..\Source\InputHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\BaseObjectClass.h" />
     <ClInclude Include="..\Source\CompatCheck.h" />
     <ClInclude Include="..\Source\EnigineInit.h" />
     <ClInclude Include="..\Source\EventHandler.h" />
