@@ -25,9 +25,11 @@ void PlayerMovement();
 void Test();
 // Global variables  
 EnigineInit engine = EnigineInit();
+
 BaseObjectClass player = BaseObjectClass("Matthew");
 BaseObjectClass childTest = BaseObjectClass("Shariq");
 BaseObjectClass childTest2 = BaseObjectClass("Victor");
+
 int x = 0;
 const int Size = 200;
 TCHAR greeting[Size] = _T("");
@@ -339,6 +341,7 @@ void PlayerMovement() {
 		}
 	}else	if (engine.inputHandler.myButtons[83] == true) { //Move Backward
 		player.position.y--;
+		//Same
 		for (int i = 0; i < player.Children.size(); ++i)
 		{
 			player.Children[i].MoveForward(0);
@@ -346,12 +349,14 @@ void PlayerMovement() {
 	}
 	if (engine.inputHandler.myButtons[65] == true) { //Move Left
 		player.position.x--;
+		//Same
 		for (int i = 0; i < player.Children.size(); ++i)
 		{
 			player.Children[i].MoveRight(0);
 		}
 	}else	if (engine.inputHandler.myButtons[68] == true) { //Move Right
 		player.position.x++;
+		//Same
 		for (int i = 0; i < player.Children.size(); ++i)
 		{
 			player.Children[i].MoveRight(1);
@@ -359,7 +364,7 @@ void PlayerMovement() {
 	}
 	player.PrintPos();
 	player.PrintChildPos();
-	//cout <<"Child: " << "[" << childTest.position.x << "," << childTest.position.y << "," << childTest.position.z << "]" << endl;
+	cout <<childTest.Name << ": [" << childTest.position.x << "," << childTest.position.y << "," << childTest.position.z << "]" << endl;
 }
 
 class IKeyboardHandler {

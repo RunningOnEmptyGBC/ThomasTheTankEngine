@@ -132,7 +132,7 @@ void BaseObjectClass::PrintChildPos()
 {
 	for (BaseObjectClass x : Children) {
 
-		cout << x.Name << ": [" << x.position.x << "," << x.position.y << "," << x.position.z << "]" << endl;
+		cout << Name <<"'s child " << x.Name << ": [" << x.position.x << "," << x.position.y << "," << x.position.z << "]" << endl;
 	}
 }
 
