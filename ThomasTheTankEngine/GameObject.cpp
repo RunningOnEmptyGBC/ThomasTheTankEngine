@@ -21,3 +21,19 @@ void GameObject::Update(float msec) {
 		(*i)->Update(msec);
 	}
 }
+void GameObject::SetTransform(const Matrix4 &matrix)
+{
+	transform = matrix;
+}
+Matrix4 GameObject::GetTransform() 
+{
+	return transform; 
+}
+Matrix4 GameObject::GetWorldTransform() 
+{
+	return worldTransform; 
+}
+void GameObject::SetParent(GameObject& p) 
+{
+	parent = &p; 
+}
