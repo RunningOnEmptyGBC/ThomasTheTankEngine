@@ -23,6 +23,7 @@ using namespace std;
 void KeyHandler();
 void PlayerMovement();
 void Test();
+void SpawnProjectile();
 // Global variables  
 EnigineInit engine = EnigineInit();
 
@@ -126,6 +127,7 @@ int CALLBACK WinMain(
 	player.Children.push_back(childTest2);
 	engine.eventHandler.AddListener(KeyDown, &KeyHandler);
 	engine.eventHandler.AddListener(KeyDown, &PlayerMovement);
+	engine.eventHandler.AddListener(KeyDown, &SpawnProjectile);
 	
 	cout << &KeyHandler << endl;
 	
@@ -334,13 +336,13 @@ void PlayerMovement() {
 	system("CLS");
 	if (engine.inputHandler.myButtons[87] == true) { //Move Forward
 		player.MoveForward(1);
-		//These loops after the Player.Move's are nessessary because MoveChildren does not work
+		//These loops after the Player.Move's are nessessary because player.MoveChildren does not work
 		for (int i = 0; i < player.Children.size(); ++i)
 		{
 			player.Children[i].MoveForward(1);
 		}
 	}else	if (engine.inputHandler.myButtons[83] == true) { //Move Backward
-		player.position.y--;
+		player.MoveForward(2);
 		//Same
 		for (int i = 0; i < player.Children.size(); ++i)
 		{
@@ -348,14 +350,14 @@ void PlayerMovement() {
 		}
 	}
 	if (engine.inputHandler.myButtons[65] == true) { //Move Left
-		player.position.x--;
+		player.MoveRight(2);
 		//Same
 		for (int i = 0; i < player.Children.size(); ++i)
 		{
 			player.Children[i].MoveRight(0);
 		}
 	}else	if (engine.inputHandler.myButtons[68] == true) { //Move Right
-		player.position.x++;
+		player.MoveRight(1);
 		//Same
 		for (int i = 0; i < player.Children.size(); ++i)
 		{
@@ -365,6 +367,14 @@ void PlayerMovement() {
 	player.PrintPos();
 	player.PrintChildPos();
 	cout <<childTest.Name << ": [" << childTest.position.x << "," << childTest.position.y << "," << childTest.position.z << "]" << endl;
+}
+
+void SpawnProjectile() {
+	//space
+	if (engine.inputHandler.myButtons[32] == true) {
+		
+	}
+
 }
 
 class IKeyboardHandler {

@@ -137,6 +137,7 @@
     <ClCompile Include="..\Source\EnigineInit.cpp" />
     <ClCompile Include="..\Source\EventHandler.cpp" />
     <ClCompile Include="..\Source\InputHandler.cpp" />
+    <ClCompile Include="..\Source\ProjectileClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\BaseObjectClass.h" />
@@ -146,6 +147,7 @@
     <ClInclude Include="..\Source\FastDelegate.h" />
     <ClInclude Include="..\Source\FastDelegateBind.h" />
     <ClInclude Include="..\Source\InputHandler.h" />
+    <ClInclude Include="..\Source\ProjectileClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
