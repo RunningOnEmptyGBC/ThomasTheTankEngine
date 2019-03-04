@@ -50,19 +50,20 @@ void BaseObjectClass::MoveChildren(int direction, int pos)
 	switch (direction)
 	{
 	case 1:
-		for (BaseObjectClass x : Children) {
+		for (std::vector<BaseObjectClass*>::iterator x = Children.begin(); x != Children.end(); ++x) {
+			(*x)->MoveRight(1);
 			
-			x.MoveForward(1);
 		}
 		break;
 	case 2:
-		for (auto x : Children) {
-			x.MoveForward(1);
+		for (std::vector<BaseObjectClass*>::iterator x = Children.begin(); x != Children.end(); ++x) {
+			
+			(*x)->MoveForward(1);
 		}
 		break;
 	case 3:
-		for (auto x : Children) {
-			x.position.z++;
+		for (std::vector<BaseObjectClass*>::iterator x = Children.begin(); x != Children.end(); ++x) {
+			(*x)->position.z++;
 		}
 		break;
 	default:
@@ -74,18 +75,19 @@ void BaseObjectClass::MoveChildren(int direction, int pos)
 		switch (direction)
 		{
 		case 1:
-			for (auto x : Children) {
-				x.MoveForward(0);
+			for (std::vector<BaseObjectClass*>::iterator x = Children.begin(); x != Children.end(); ++x) {
+				
+				(*x)->MoveRight(2);
 			}
 			break;
 		case 2:
-			for (auto x : Children) {
-				x.MoveForward(0);
+			for (std::vector<BaseObjectClass*>::iterator x = Children.begin(); x != Children.end(); ++x) {
+				(*x)->MoveForward(2);
 			}
 			break;
 		case 3:
-			for (auto x : Children) {
-				x.position.z--;
+			for (std::vector<BaseObjectClass*>::iterator x = Children.begin(); x != Children.end(); ++x) {
+				(*x)->position.z--;
 			}
 			break;
 		default:
@@ -105,7 +107,7 @@ void BaseObjectClass::MoveRight(int direction)
 	}
 	else {
 		position.x--;
-		MoveChildren(1, 0);
+		MoveChildren(1, 2);
 	}
 }
 
@@ -119,7 +121,7 @@ void BaseObjectClass::MoveForward(int direction)
 	}
 	else {
 		position.y--;
-		MoveChildren(2,0);
+		MoveChildren(2,2);
 	}
 }
 
@@ -130,10 +132,26 @@ void BaseObjectClass::PrintPos()
 
 void BaseObjectClass::PrintChildPos()
 {
-	for (BaseObjectClass x : Children) {
+	 for (std::vector<BaseObjectClass*>::iterator x = Children.begin(); x != Children.end(); ++x) {
 
-		cout << Name <<"'s child " << x.Name << ": [" << x.position.x << "," << x.position.y << "," << x.position.z << "]" << endl;
+		cout << Name <<"'s child " << (*x)->Name << ": [" << (*x)->position.x << "," << (*x)->position.y << "," << (*x)->position.z << "]" << endl;
 	}
+}
+
+void BaseObjectClass::Start()
+{
+}
+
+void BaseObjectClass::Awake()
+{
+}
+
+void BaseObjectClass::Update()
+{
+}
+
+void BaseObjectClass::LateUpdate()
+{
 }
 
 

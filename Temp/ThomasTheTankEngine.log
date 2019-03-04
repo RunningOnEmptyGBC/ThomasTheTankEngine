@@ -1,5 +1,5 @@
 ﻿  EngineMain.cpp
-c:\users\shado\documents\github\thomasthetankengine\source\enginemain.cpp(71): warning C4302: 'type cast': truncation from 'LPSTR' to 'WORD'
-c:\users\shado\documents\github\thomasthetankengine\source\enginemain.cpp(76): warning C4302: 'type cast': truncation from 'LPSTR' to 'WORD'
-c:\users\shado\documents\github\thomasthetankengine\source\enginemain.cpp(272): warning C4715: 'WndProc': not all control paths return a value
+c:\users\shado\documents\github\thomasthetankengine\source\enginemain.cpp(75): warning C4302: 'type cast': truncation from 'LPSTR' to 'WORD'
+c:\users\shado\documents\github\thomasthetankengine\source\enginemain.cpp(80): warning C4302: 'type cast': truncation from 'LPSTR' to 'WORD'
+c:\users\shado\documents\github\thomasthetankengine\source\enginemain.cpp(284): warning C4715: 'WndProc': not all control paths return a value
   ThomasTheTankEngine.vcxproj -> C:\Users\shado\Documents\GitHub\ThomasTheTankEngine\ThomasTheTankEngine\..\Test\x64\ThomasTheTankEngine.exe

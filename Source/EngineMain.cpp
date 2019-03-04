@@ -7,6 +7,8 @@
 #include "InputHandler.h"
 #include "EventHandler.h"
 #include "EnigineInit.h"
+#include "../ThomasTheTankEngine/SceneGraph.h"
+#include "ProjectileClass.h"
 #include <iostream>
 #include <fstream>
 #include <conio.h>
@@ -24,9 +26,10 @@ void KeyHandler();
 void PlayerMovement();
 void Test();
 void SpawnProjectile();
+void WTestEvent();
 // Global variables  
 EnigineInit engine = EnigineInit();
-
+SceneGraph Scene = SceneGraph();
 BaseObjectClass player = BaseObjectClass("Matthew");
 BaseObjectClass childTest = BaseObjectClass("Shariq");
 BaseObjectClass childTest2 = BaseObjectClass("Victor");
@@ -120,16 +123,21 @@ int CALLBACK WinMain(
 		return 1;
 	}
 	
-	
-	player.setType(1);
-	childTest.setType(1);
-	player.Children.push_back(childTest);
-	player.Children.push_back(childTest2);
+	//Setting Up objects
+	Scene.AddtoSceneGraph(&player);
+	Scene.AddtoSceneGraph(&childTest);
+	Scene.AddtoSceneGraph(&childTest2);
+	player.Children.push_back(&childTest);
+	childTest.Children.push_back(&childTest2);
+
+
+	//Adding Events
 	engine.eventHandler.AddListener(KeyDown, &KeyHandler);
 	engine.eventHandler.AddListener(KeyDown, &PlayerMovement);
 	engine.eventHandler.AddListener(KeyDown, &SpawnProjectile);
+	engine.eventHandler.AddListener(Last, WTestEvent);
 	
-	cout << &KeyHandler << endl;
+	//cout << &KeyHandler << endl;
 	
 	// The parameters to ShowWindow explained:  
 	// hWnd: the value returned from CreateWindow  
@@ -139,10 +147,12 @@ int CALLBACK WinMain(
 
 	// Main message loop:  
 	MSG msg;
+	int test = 0;
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
+		//Scene.Update();
 		RedrawWindow(hWnd, NULL, NULL, RDW_INVALIDATE);
 	}
 
@@ -333,46 +343,50 @@ void KeyHandler() {
 }
 
 void PlayerMovement() {
-	system("CLS");
+	//system("CLS");
 	if (engine.inputHandler.myButtons[87] == true) { //Move Forward
 		player.MoveForward(1);
 		//These loops after the Player.Move's are nessessary because player.MoveChildren does not work
-		for (int i = 0; i < player.Children.size(); ++i)
+		/*for (int i = 0; i < player.Children.size(); ++i)
 		{
 			player.Children[i].MoveForward(1);
-		}
+		}*/
 	}else	if (engine.inputHandler.myButtons[83] == true) { //Move Backward
 		player.MoveForward(2);
 		//Same
-		for (int i = 0; i < player.Children.size(); ++i)
+		/*for (int i = 0; i < player.Children.size(); ++i)
 		{
 			player.Children[i].MoveForward(0);
-		}
+		}*/
 	}
 	if (engine.inputHandler.myButtons[65] == true) { //Move Left
 		player.MoveRight(2);
 		//Same
-		for (int i = 0; i < player.Children.size(); ++i)
+		/*for (int i = 0; i < player.Children.size(); ++i)
 		{
 			player.Children[i].MoveRight(0);
-		}
+		}*/
 	}else	if (engine.inputHandler.myButtons[68] == true) { //Move Right
 		player.MoveRight(1);
 		//Same
-		for (int i = 0; i < player.Children.size(); ++i)
+		/*for (int i = 0; i < player.Children.size(); ++i)
 		{
 			player.Children[i].MoveRight(1);
-		}
+		}*/
 	}
-	player.PrintPos();
+	//Scene.PrintAllObjectData();
+	/*player.PrintPos();
 	player.PrintChildPos();
-	cout <<childTest.Name << ": [" << childTest.position.x << "," << childTest.position.y << "," << childTest.position.z << "]" << endl;
+	childTest.PrintChildPos();
+	cout <<childTest.Name << ": [" << childTest.position.x << "," << childTest.position.y << "," << childTest.position.z << "]" << endl;*/
 }
 
 void SpawnProjectile() {
 	//space
 	if (engine.inputHandler.myButtons[32] == true) {
-		
+		ProjectileClass Bullet = ProjectileClass(player);
+		Scene.AddtoSceneGraph(&Bullet);
+		//Bullet.PrintPos();
 	}
 
 }
@@ -388,7 +402,8 @@ void Test() {
 }
 
 void WTestEvent() {
-
+	//system("CLS");
+	//Scene.PrintAllObjectData();
 }
 
 

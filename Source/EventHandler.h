@@ -14,7 +14,8 @@ enum eventType {
 	MouseButton,
 	MouseMovement,
 	KeyUp,
-	OnOverlap
+	OnOverlap,
+	Last
 };
 
 class EventHandler

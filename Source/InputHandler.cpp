@@ -57,7 +57,7 @@ void InputHandler::GetInput(UINT uMsg,EventHandler eventHandler, WPARAM wParam, 
 
 		break;
 	default:
-
+		eventHandler.TriggerEvent(Last);
 		break;
 	}
 	

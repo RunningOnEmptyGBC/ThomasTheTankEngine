@@ -22,17 +22,26 @@ public:
 	std::string Name;
 	ObjectType Type;
 	position position;
-	std::vector<BaseObjectClass> Children;
+	std::vector<BaseObjectClass*> Children;
+	int IDNumber;
 	//Model model;  //This is placeholder till real models are implimented
 	
 	BaseObjectClass();
 	BaseObjectClass(std::string name);
+	//Old Functions
 	void setType(int type);
 	void MoveChildren(int direction,int pos);
 	void MoveRight(int direction);
 	void MoveForward(int direction);
 	void PrintPos();
 	void PrintChildPos();
+
+	//NewFunctions
+	void Start();
+	void Awake();
+	void Update();
+	void LateUpdate();
+
 	~BaseObjectClass();
 };
 
