@@ -1,4 +1,0 @@
-﻿  DXapp.cpp
-d:\engine directx\gameengine new concept\gameengine\dxapp.cpp(116): warning C4838: conversion from 'UINT' to 'LONG' requires a narrowing conversion
-d:\engine directx\gameengine new concept\gameengine\dxapp.cpp(210): warning C4018: '<': signed/unsigned mismatch
-  GameEngine.vcxproj -> D:\Engine DirectX\GameEngine NEW Concept\Debug\GameEngine.exe
