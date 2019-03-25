@@ -295,7 +295,7 @@ bool Graphics::Render(float rotation)
 
 	////Render scene to screen
 	//m_D3D->EndScene();
-
+	
 	m_sceneGraph->Render(m_D3D, m_colourShader, m_textureShader, m_lightShader);
 
 	return true;

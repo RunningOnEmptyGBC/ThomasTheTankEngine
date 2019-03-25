@@ -49,4 +49,10 @@ private:
 	int m_vertexCount, m_indexCount;
 	TextureLoader* m_texture;
 	ModelType* m_model;
+
+
+	VertexType* vertices;
+	unsigned long* indices;
+	D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc;
+	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 };

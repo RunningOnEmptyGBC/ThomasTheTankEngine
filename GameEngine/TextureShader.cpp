@@ -24,7 +24,7 @@ bool TextureShader::Init(ID3D11Device* device, HWND hwnd)
 	bool result;
 
 	// Initialize the vertex and pixel shaders.
-	result = InitShader(device, hwnd, L"../Shaders/Texture.vs", L"../Shaders/Texture.ps");
+	result = InitShader(device, hwnd, L"../Resources/Shaders/Texture.vs", L"../Resources/Shaders/Texture.ps");
 	if (!result)
 	{
 		return false;

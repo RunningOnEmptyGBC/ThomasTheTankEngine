@@ -5,6 +5,7 @@ EngineSystem::EngineSystem()
 {
 	m_Input = 0;
 	m_Graphics = 0;
+	m_audio = 0;
 }
 
 EngineSystem::EngineSystem(const EngineSystem& other)
@@ -54,11 +55,33 @@ bool EngineSystem::Init()
 		return false;
 	}
 
+	//Create the sound object
+	m_audio = new Audio;
+	if (!m_audio)
+	{
+		return false;
+	}
+
+	//Initialize the sound object
+	result = m_audio->Init(m_hAppWnd);
+	if (!result)
+	{
+		return false;
+	}
+
 	return true;
 }
 
 void EngineSystem::Shutdown()
 {
+	//Release the sound object
+	if (m_audio)
+	{
+		m_audio->Shutdown();
+		delete m_audio;
+		m_audio = 0;
+	}
+
 	// Release the graphics object.
 	if (m_Graphics)
 	{

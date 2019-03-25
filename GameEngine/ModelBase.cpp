@@ -10,7 +10,7 @@ ModelBase::ModelBase()
 
 ModelBase::ModelBase(const ModelBase& other)
 {
-
+	
 }
 
 ModelBase::~ModelBase()
@@ -61,8 +61,9 @@ void ModelBase::Shutdown()
 }
 
 void ModelBase::Render(ID3D11DeviceContext* deviceContext)
-{
+{	
 	// Put the vertex and index buffers on the graphics pipeline to prepare them for drawing.
+	//vertices[0].position = XMFLOAT3(4, 5, 7);
 	RenderBuffers(deviceContext);
 
 	return;
@@ -78,15 +79,15 @@ ID3D11ShaderResourceView* ModelBase::GetTexture()
 	return m_texture->GetTexture();
 }
 
+
+
 bool ModelBase::InitBuffers(ID3D11Device* device)
 {
 	//In this function you will find the hardcoded triangle.
 	//It is for demonstration purposes only and will be removed later
 
-	VertexType* vertices;
-	unsigned long* indices;
-	D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc;
-	D3D11_SUBRESOURCE_DATA vertexData, indexData;
+	
+	
 	HRESULT result;
 	int i;
 
@@ -145,7 +146,7 @@ bool ModelBase::InitBuffers(ID3D11Device* device)
 
 		indices[i] = i;
 	}
-
+	
 	// Set up the description of the static vertex buffer.
 	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	vertexBufferDesc.ByteWidth = sizeof(VertexType) * m_vertexCount;
@@ -187,8 +188,8 @@ bool ModelBase::InitBuffers(ID3D11Device* device)
 	}
 
 	// Release the arrays now that the vertex and index buffers have been created and loaded.
-	delete[] vertices;
-	vertices = 0;
+	//delete[] vertices;
+	//vertices = 0;
 
 	delete[] indices;
 	indices = 0;

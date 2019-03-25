@@ -1,6 +1,38 @@
-﻿  SceneGraph.cpp
-d:\engine directx\directx framework - texture\gameengine\scenegraph.cpp(98): warning C4156: deletion of an array expression without using the array form of 'delete'; array form substituted
-d:\engine directx\directx framework - texture\gameengine\scenegraph.cpp(98): warning C4154: deletion of an array expression; conversion to pointer supplied
-d:\engine directx\directx framework - texture\gameengine\scenegraph.cpp(106): warning C4156: deletion of an array expression without using the array form of 'delete'; array form substituted
-d:\engine directx\directx framework - texture\gameengine\scenegraph.cpp(106): warning C4154: deletion of an array expression; conversion to pointer supplied
-  GameEngine.vcxproj -> D:\Engine DirectX\DirectX Framework - Texture\x64\Debug\GameEngine.exe
+﻿  Audio.cpp
+c:\users\localadmin\desktop\thomasthetankengine - copy (3)\gameengine\audio.cpp(156): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+c:\users\localadmin\desktop\thomasthetankengine - copy (3)\gameengine\audio.cpp(260): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+  BitmapBase.cpp
+  Camera.cpp
+  ColourShader.cpp
+  DXapp.cpp
+c:\users\localadmin\desktop\thomasthetankengine - copy (3)\gameengine\dxapp.cpp(69): warning C4101: 'error': unreferenced local variable
+c:\users\localadmin\desktop\thomasthetankengine - copy (3)\gameengine\dxapp.cpp(66): warning C4101: 'stringLength': unreferenced local variable
+  dxerr.cpp
+  DXutil.cpp
+  EngineMain.cpp
+  EngineSystem.cpp
+  Graphics.cpp
+  Input.cpp
+  LightingShader.cpp
+c:\users\localadmin\desktop\thomasthetankengine - copy (3)\gameengine\lightingshader.cpp(316): warning C4244: '=': conversion from 'SIZE_T' to 'unsigned long', possible loss of data
+  Lights.cpp
+  ModelBase.cpp
+c:\users\localadmin\desktop\thomasthetankengine - copy (3)\gameengine\modelbase.cpp(73): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=glm::f64
+          ]
+c:\users\localadmin\desktop\thomasthetankengine - copy (3)\gameengine\modelbase.cpp(170): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=glm::f64
+          ]
+  SceneGraph.cpp
+c:\users\localadmin\desktop\thomasthetankengine - copy (3)\gameengine\scenegraph.cpp(98): warning C4156: deletion of an array expression without using the array form of 'delete'; array form substituted
+c:\users\localadmin\desktop\thomasthetankengine - copy (3)\gameengine\scenegraph.cpp(98): warning C4154: deletion of an array expression; conversion to pointer supplied
+c:\users\localadmin\desktop\thomasthetankengine - copy (3)\gameengine\scenegraph.cpp(106): warning C4156: deletion of an array expression without using the array form of 'delete'; array form substituted
+c:\users\localadmin\desktop\thomasthetankengine - copy (3)\gameengine\scenegraph.cpp(106): warning C4154: deletion of an array expression; conversion to pointer supplied
+  TextureLoader.cpp
+  TextureShader.cpp
+  Generating Code...
+  GameEngine.vcxproj -> C:\Users\localadmin\Desktop\ThomasTheTankEngine - Copy (3)\x64\Debug\GameEngine.exe

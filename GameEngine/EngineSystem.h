@@ -6,6 +6,7 @@
 #include "DXutil.h"
 #include "Graphics.h"
 #include "Input.h"
+#include "Audio.h"
 
 class EngineSystem
 {
@@ -32,6 +33,7 @@ private:
 
 	Input* m_Input;
 	Graphics* m_Graphics;
+	Audio* m_audio;
 };
 
 static LRESULT CALLBACK MainWndProc(HWND, UINT, WPARAM, LPARAM);

@@ -67,7 +67,7 @@ bool SceneGraph::Init(int screenWidth, int screenHeight, HWND hwnd, DXapp* m_D3D
 			MB_OK);
 		return false;
 	}
-
+	m_modelBase[0];
 	//Create the bitmap object.
 	m_bitmap[0] = new BitmapBase;
 	if (!m_bitmap)
@@ -85,7 +85,7 @@ bool SceneGraph::Init(int screenWidth, int screenHeight, HWND hwnd, DXapp* m_D3D
 			MB_OK);
 		return false;
 	}
-
+	
 	return true;
 }
 
@@ -126,9 +126,9 @@ bool SceneGraph::Render(DXapp* m_D3D, ColourShader* m_colourShader, TextureShade
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoMatrix;
 	bool result;
-	int level = 0;
+	int level = 1;
 
-
+	
 	if (level == 0)
 	{
 		//Clear the buffers to begin the scene
@@ -181,6 +181,7 @@ bool SceneGraph::Render(DXapp* m_D3D, ColourShader* m_colourShader, TextureShade
 		m_D3D->GetOrthoMatrix(orthoMatrix);
 
 		//Add model vertex and index buffers to pipeline
+		
 		m_modelBase[0]->Render(m_D3D->GetDeviceContext());
 
 		//Render the model using the colour shader

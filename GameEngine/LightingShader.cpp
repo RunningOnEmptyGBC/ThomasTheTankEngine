@@ -26,7 +26,7 @@ bool LightingShader::Init(ID3D11Device * device, HWND hwnd)
 	bool result;
 
 	// Initialize the vertex and pixel shaders.
-	result = InitShader(device, hwnd, L"../Shaders/light.vs", L"../Shaders/light.ps");
+	result = InitShader(device, hwnd, L"../Resources/Shaders/light.vs", L"../Resources/Shaders/light.ps");
 	if (!result)
 	{
 		return false;
