@@ -17,10 +17,13 @@ public:
 	void AddtoSceneGraph(BaseObjectClass* object);
 	void RemoveFromSceneGraph(BaseObjectClass* object);
 	void Update();
-
+	void Start();
+	void EmptyBuffer();
 private:
+	std::map<int, BaseObjectClass*> m_ObjectsBuffer;
 	std::map<int, BaseObjectClass*> m_Objects;
 	static int nextObjectID;
+	static int bufferNextObjectID;
 };
 
 

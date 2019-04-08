@@ -1,5 +1,4 @@
-﻿  EngineMain.cpp
-c:\users\shado\documents\github\thomasthetankengine\source\enginemain.cpp(75): warning C4302: 'type cast': truncation from 'LPSTR' to 'WORD'
-c:\users\shado\documents\github\thomasthetankengine\source\enginemain.cpp(80): warning C4302: 'type cast': truncation from 'LPSTR' to 'WORD'
-c:\users\shado\documents\github\thomasthetankengine\source\enginemain.cpp(284): warning C4715: 'WndProc': not all control paths return a value
-  ThomasTheTankEngine.vcxproj -> C:\Users\shado\Documents\GitHub\ThomasTheTankEngine\ThomasTheTankEngine\..\Test\x64\ThomasTheTankEngine.exe
+﻿  SceneGraph.cpp
+c:\users\shado\documents\github\thomasthetankengine\thomasthetankengine\scenegraph.cpp(36): error C2059: syntax error: 'constant'
+c:\users\shado\documents\github\thomasthetankengine\thomasthetankengine\scenegraph.cpp(39): error C2143: syntax error: missing ';' before '{'
+c:\users\shado\documents\github\thomasthetankengine\thomasthetankengine\scenegraph.cpp(39): error C2447: '{': missing function header (old-style formal list?)

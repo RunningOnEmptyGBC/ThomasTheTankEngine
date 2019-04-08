@@ -130,7 +130,7 @@ int CALLBACK WinMain(
 	player.Children.push_back(&childTest);
 	childTest.Children.push_back(&childTest2);
 
-
+	Scene.Start();
 	//Adding Events
 	engine.eventHandler.AddListener(KeyDown, &KeyHandler);
 	engine.eventHandler.AddListener(KeyDown, &PlayerMovement);
@@ -186,6 +186,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	LPSTR temp = new char[1];
 	
 	engine.inputHandler.GetInput(uMsg, engine.eventHandler, wParam, lParam);
+	Scene.Update();
 	//engine.eventHandler.TriggerEvent(KeyDown);
 	switch (uMsg)
 	{
@@ -386,6 +387,8 @@ void SpawnProjectile() {
 	if (engine.inputHandler.myButtons[32] == true) {
 		ProjectileClass Bullet = ProjectileClass(player);
 		Scene.AddtoSceneGraph(&Bullet);
+		BaseObjectClass Obj = BaseObjectClass("Test");
+		Scene.AddtoSceneGraph(&Obj);
 		//Bullet.PrintPos();
 	}
 

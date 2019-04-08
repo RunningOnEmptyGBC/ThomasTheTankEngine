@@ -12,7 +12,8 @@ ProjectileClass::ProjectileClass(BaseObjectClass host)
 
 void ProjectileClass::UpdatePos()
 {
-	//this->MoveForward(1);
+	this->MoveForward(1);
+	std::cout << "Working" << std::endl;
 }
 
 void ProjectileClass::Update()
