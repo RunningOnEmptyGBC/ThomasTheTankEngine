@@ -1,4 +1,0 @@
-﻿  SceneGraph.cpp
-c:\users\shado\documents\github\thomasthetankengine\thomasthetankengine\scenegraph.cpp(36): error C2059: syntax error: 'constant'
-c:\users\shado\documents\github\thomasthetankengine\thomasthetankengine\scenegraph.cpp(39): error C2143: syntax error: missing ';' before '{'
-c:\users\shado\documents\github\thomasthetankengine\thomasthetankengine\scenegraph.cpp(39): error C2447: '{': missing function header (old-style formal list?)
