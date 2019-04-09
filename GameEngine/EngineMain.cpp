@@ -16,7 +16,7 @@ int CALLBACK WinMain(
 		return 0;
 	}
 
-	
+	//System->m_Graphics->m_sceneGraph->AddtoSceneGraph();
 	// Get STDOUT handle
 	AllocConsole();
 	HANDLE ConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);

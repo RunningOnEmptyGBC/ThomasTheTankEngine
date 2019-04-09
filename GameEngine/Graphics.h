@@ -27,7 +27,7 @@ public:
 	void Shutdown();
 	bool Frame();
 
-private:
+
 	bool Render(float);
 
 	DXapp* m_D3D;

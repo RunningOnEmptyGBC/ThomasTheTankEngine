@@ -1,2 +1,7 @@
-﻿  ModelBase.cpp
-  GameEngine.vcxproj -> C:\Users\shado\Desktop\DirectX Framework - WIN32 Windows\x64\Debug\GameEngine.exe
+﻿  SceneGraph.cpp
+c:\users\shado\documents\github\thomasthetankengine\gameengine\scenegraph.cpp(108): warning C4156: deletion of an array expression without using the array form of 'delete'; array form substituted
+c:\users\shado\documents\github\thomasthetankengine\gameengine\scenegraph.cpp(108): warning C4154: deletion of an array expression; conversion to pointer supplied
+c:\users\shado\documents\github\thomasthetankengine\gameengine\scenegraph.cpp(116): warning C4156: deletion of an array expression without using the array form of 'delete'; array form substituted
+c:\users\shado\documents\github\thomasthetankengine\gameengine\scenegraph.cpp(116): warning C4154: deletion of an array expression; conversion to pointer supplied
+c:\users\shado\documents\github\thomasthetankengine\gameengine\scenegraph.cpp(310): warning C4172: returning address of local variable or temporary: Cube
+  GameEngine.vcxproj -> C:\Users\shado\Documents\GitHub\ThomasTheTankEngine\x64\Debug\GameEngine.exe

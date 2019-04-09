@@ -33,13 +33,12 @@ public:
 	virtual void Run();
 
 	LRESULT CALLBACK MsgProc(HWND, UINT, WPARAM, LPARAM);
+	
 
-private:
 	bool Frame();
 	void InitWindows(int&, int&);
 	void ShutdownWindows();
 
-private:
 	LPCSTR m_appName;
 	LPCSTR m_menuName;
 	HINSTANCE m_hAppInstance;

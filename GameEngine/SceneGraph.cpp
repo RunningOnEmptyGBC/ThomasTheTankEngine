@@ -28,7 +28,7 @@ SceneGraph::~SceneGraph()
 bool SceneGraph::Init(int screenWidth, int screenHeight, HWND hwnd, DXapp* m_D3D)
 {
 	bool result;
-
+ 
 	//m_D3D = new DXapp;
 
 	//Create camera object
@@ -62,7 +62,12 @@ bool SceneGraph::Init(int screenWidth, int screenHeight, HWND hwnd, DXapp* m_D3D
 		return false;
 	}
 
-	//Initialize model object
+
+	//Test Base Object
+	BaseObjectClass* Test = MakeCube(m_D3D);
+
+
+	////Initialize model object
 	result = m_modelBase[0]->Init(m_D3D->GetDevice(), m_D3D->GetDeviceContext(), L"../Resources/Models/cube.txt", L"../Resources/Textures/bricks3.tga");
 	if (!result)
 	{
@@ -133,7 +138,12 @@ bool SceneGraph::Render(DXapp* m_D3D, ColourShader* m_colourShader, TextureShade
 	bool result;
 	int level = 1;
 
+	Scene_D3D = m_D3D;
+	Scene_lightShader = m_lightShader;
 	
+
+	
+
 	if (level == 0)
 	{
 		//Clear the buffers to begin the scene
@@ -185,9 +195,13 @@ bool SceneGraph::Render(DXapp* m_D3D, ColourShader* m_colourShader, TextureShade
 		m_D3D->GetProjectionMatrix(projectionMatrix);
 		m_D3D->GetOrthoMatrix(orthoMatrix);
 
-		//Add model vertex and index buffers to pipeline
+		////Add model vertex and index buffers to pipeline
+		////m_modelBase[0]->Render(m_D3D->GetDeviceContext());
+		//std::map<int, BaseObjectClass*>::iterator it = m_Objects.begin();
+		//for (it = m_Objects.begin(); it != m_Objects.end(); ++it) {
+		//	it->second->model.Render(m_D3D->GetDeviceContext());
+		//}
 		m_modelBase[0]->Render(m_D3D->GetDeviceContext());
-
 		//Render the model using the colour shader
 		/*result = m_colourShader->Render(m_D3D->GetDeviceContext(), m_modelBase->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix);
 		if (!result)
@@ -203,6 +217,7 @@ bool SceneGraph::Render(DXapp* m_D3D, ColourShader* m_colourShader, TextureShade
 		}*/
 
 		// Render the model using the light shader.
+		//Update();
 		result = m_lightShader->Render(m_D3D->GetDeviceContext(), m_modelBase[0]->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, m_modelBase[0]->GetTexture(), m_lights->GetDirection(), m_lights->GetAmbientColour(), m_lights->GetDiffuseColour(), m_camera->GetPosition(), m_lights->GetSpecularColour(), m_lights->GetSpecularPower());
 		if (!result)
 		{
@@ -230,12 +245,17 @@ void SceneGraph::PrintAllObjectData()
 
 void SceneGraph::AddtoSceneGraph(BaseObjectClass* object)
 {
-	std::cout << object->Name;
+	/*std::cout << object->Name;
 	m_ObjectsBuffer.insert(std::pair<int, BaseObjectClass*>(bufferNextObjectID, object));
 	object->IDNumber = bufferNextObjectID;
-	bufferNextObjectID++;
+	bufferNextObjectID++;*/
+
+	std::cout << object->Name;
+	m_Objects.insert(std::pair<int, BaseObjectClass*>(nextObjectID, object));
+	object->IDNumber = nextObjectID;
+	nextObjectID++;
 	//PrintAllObjectData();
-	New = true;
+	//New = true;
 }
 
 void SceneGraph::RemoveFromSceneGraph(BaseObjectClass * object)
@@ -280,4 +300,12 @@ void SceneGraph::EmptyBuffer()
 	bufferNextObjectID = 0;
 	PrintAllObjectData();
 	New = false;
+}
+
+BaseObjectClass* SceneGraph::MakeCube(DXapp* D3d) {
+	
+	BaseObjectClass Cube = BaseObjectClass(D3d, L"../Resources/Models/cube.txt", L"../Resources/Textures/bricks3.tga");
+	AddtoSceneGraph(&Cube);
+
+	return(&Cube);
 }

@@ -35,6 +35,7 @@ public:
 	void Update();
 	void Start();
 	void EmptyBuffer();
+	BaseObjectClass* MakeCube(DXapp* D3d);
 private:
 	// Matthews Privates
 	std::map<int, BaseObjectClass*> m_ObjectsBuffer;
@@ -50,4 +51,8 @@ private:
 	Camera* m_camera;
 	Lights* m_lights;
 	BitmapBase*	m_bitmap[4];
+
+
+	DXapp* Scene_D3D;
+	LightingShader* Scene_lightShader;
 };

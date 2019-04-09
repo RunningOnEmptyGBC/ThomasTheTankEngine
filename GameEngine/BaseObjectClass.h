@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <iostream>
 #include <vector>
+#include "../GameEngine/ModelBase.h"
+#include "DXapp.h"
 //This class acts as the base for all object classes
 //All objects should be dirived from this class
 
@@ -27,6 +29,8 @@ public:
 	//Model model;  //This is placeholder till real models are implimented
 	
 	BaseObjectClass();
+	BaseObjectClass(DXapp * D3d, const wchar_t * Model, const wchar_t * Texture);
+	BaseObjectClass(DXapp * D3d, const wchar_t Model, const wchar_t Texture);
 	BaseObjectClass(std::string name);
 	//Old Functions
 	void setType(int type);
@@ -41,6 +45,8 @@ public:
 	void Awake();
 	void Update();
 	void LateUpdate();
+
+	ModelBase model;
 
 	~BaseObjectClass();
 };

@@ -43,7 +43,7 @@ public:
 
 	
 
-private:
+
 	bool InitBuffers(ID3D11Device*);
 	void ShutdownBuffers();
 	void RenderBuffers(ID3D11DeviceContext*);

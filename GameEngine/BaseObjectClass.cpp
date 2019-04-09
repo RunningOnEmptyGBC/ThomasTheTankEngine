@@ -9,6 +9,19 @@ BaseObjectClass::BaseObjectClass()
 	position.x = 0;
 	position.y = 0;
 	position.z = 0;
+
+	//model = new ModelBase();
+}
+
+BaseObjectClass::BaseObjectClass(DXapp* D3d, const wchar_t* Model, const wchar_t* Texture)
+{
+	Name = "You really should have given a Name";
+	Type = Player;
+	position.x = 0;
+	position.y = 0;
+	position.z = 0;
+
+	model.Init(D3d->GetDevice(), D3d->GetDeviceContext(), L"../Resources/Models/cube.txt", L"../Resources/Textures/bricks3.tga");
 }
 
 BaseObjectClass::BaseObjectClass(std::string name)
